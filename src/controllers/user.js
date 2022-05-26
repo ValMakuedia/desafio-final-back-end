@@ -1,6 +1,7 @@
 const knex = require('../database/conexao');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const segredo = require('../segredo')
 
 
 const registerUser = async (req, res) => {
