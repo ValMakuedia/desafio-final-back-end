@@ -22,5 +22,5 @@ create database "api-desafio"
      district varchar,
      city varchar,
      state varchar
-      
+    )
 
