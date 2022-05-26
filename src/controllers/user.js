@@ -1,5 +1,6 @@
 const knex = require('../database/conexao');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
@@ -28,7 +29,33 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return res.status(400).json("Campo obrigatório")
+    }
 
+    try {
+        const user = await knex('users').where('email', email)
+
+        if (user === 0) {
+            return res.status(400).json("Email ou senha incorretas");
+        }
+        const { password: passwordF, id: idF, email: emailF } = user[0]
+
+        const verifiedPassword = await bcrypt.compare(password, passwordF)
+        if (!verifiedPassword) {
+            return res.status(400).json("Email ou senha incorretas");
+        }
+        const token = jwt.sign({ id: idF }, segredo, { expiresIn: '10000000000h' })
+
+        return res.status(200).json({
+            "id": idF,
+            "email": emailF,
+            "token": token
+        })
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
 }
 
 const updateUser = async (req, res) => {
@@ -43,7 +70,7 @@ const updateUser = async (req, res) => {
         if (email) {
             if (email !== req.user.email) {
                 const emailUser = await knex('users').where('email', email).first();
-                
+
                 if (emailUser) {
                     return res.status(400).json('Email já existe')
                 }
@@ -52,13 +79,13 @@ const updateUser = async (req, res) => {
         if (password) {
             password = await bcrypt.hash(password, 8)
         }
-        const update = await knex('users').update({name, email, password, phone, cpf}).where({id});
+        const update = await knex('users').update({ name, email, password, phone, cpf }).where({ id });
         if (!update) {
             return res.status(400).json('O usuario não foi atualizado');
         }
 
         return res.status(200).json('Usuario atualizado com sucesso.')
-    }catch (error){
+    } catch (error) {
         return res.status(400).json(error.message);
     }
 }
