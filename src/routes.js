@@ -1,10 +1,13 @@
 const express = require('express');
-const users = require('./controllers/user');
-
+const { registerUser, loginUser, updateUser } = require('./controllers/user');
+const verifyLogin = require('./middleware/verifyLogin.js')
 const routes = express();
 
-routes.post('/user', users.registerUser);
-routes.post('/login', users.loginUser)
-routes.put('/users/:id', users.updateUser);
+routes.post('/user', registerUser);
+routes.post('/login', loginUser);
+
+routes.use(verifyLogin)
+
+routes.put('/users/:id', updateUser);
 
 module.exports = routes;
