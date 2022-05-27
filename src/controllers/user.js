@@ -2,7 +2,7 @@ const knex = require('../database/conexao');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const segredo = require('../segredo');
-const { hash } = require('bcrypt');
+
 
 
 const registerUser = async (req, res) => {
@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
             return res.status(400).json("Email já cadastrado!");
         }
         const hash = await bcrypt.hash(password, 8);
-       
+
         const user = await knex('users').insert({ name, email, password: hash });
         if (user.length === 0) {
             return res.status(400).json("Usuário cadastrado!");
@@ -32,8 +32,8 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
-    const {email, password} = req.body;
-   
+    const { email, password } = req.body;
+
     if (!email || !password) {
         return res.status(400).json("Campo obrigatório!")
     }
@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
         if (!verifiedPassword) {
             return res.status(400).json("Email ou senha incorretas!");
         }
-        const token = jwt.sign({ id: idF }, segredo, { expiresIn: '10000000000h' })
+        const token = jwt.sign({ id: idF }, segredo)
 
         return res.status(200).json({
             "id": idF,
@@ -65,7 +65,8 @@ const loginUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     let { name, email, password, phone, cpf } = req.body;
-    const { id } = req.user;
+    const { id } = req.usuario;
+
 
     if (!name || !email || !password) {
         return res.status(404).json("Campo obrigatório!")
@@ -81,12 +82,12 @@ const updateUser = async (req, res) => {
                 }
             }
         }
-        if (password) {
-            const hash = await bcrypt.hash(password, 8);
-        }
-        const update = await knex('users').update({ name, email, password: hash, phone, cpf }).where({ id });
+
+        const hash = await bcrypt.hash(password, 8);
+
+        const update = await knex('users').where('id', id).update({ name, email, password: hash, phone, cpf });
         if (!update) {
-            return res.status(400).json('Usuário não atualizado!');
+            return res.status(400).json('Usuário não pode ser atualizado!');
         }
 
         return res.status(200).json('Usuário atualizado com sucesso!')

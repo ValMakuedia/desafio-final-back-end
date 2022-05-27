@@ -13,7 +13,8 @@ const verifyLogin = async (req, res, next) => {
 
     try {
         const token = authorization.replace('Bearer ', '').trim();
-        const { id } = await jwt.verify(token, segredo);
+        const { id } = jwt.verify(token, segredo);
+
         const queryId = await knex('users').where('id', id)
 
         if (!queryId) {
