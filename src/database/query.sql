@@ -5,8 +5,8 @@ create database "api-desafio"
     name varchar not null,
     email varchar unique not null,
     password text not null,
-  	phone integer not null,
-    cpf integer unique not null
+  	phone integer ,
+    cpf integer unique 
     );
   
     
