@@ -1,7 +1,8 @@
 const knex = require('../database/conexao');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const segredo = require('../segredo')
+const segredo = require('../segredo');
+const { hash } = require('bcrypt');
 
 
 const registerUser = async (req, res) => {
@@ -72,7 +73,7 @@ const updateUser = async (req, res) => {
 
     try {
         if (email) {
-            if (email !== req.user.email) {
+            if (email !== req.body.email) {
                 const emailUser = await knex('users').where('email', email).first();
 
                 if (emailUser) {
@@ -81,9 +82,9 @@ const updateUser = async (req, res) => {
             }
         }
         if (password) {
-            password = await  pwd.hash(Buffer.from(password)).toString("hex");
+            const hash = await bcrypt.hash(password, 8);
         }
-        const update = await knex('users').update({ name, email, password, phone, cpf }).where({ id });
+        const update = await knex('users').update({ name, email, password: hash, phone, cpf }).where({ id });
         if (!update) {
             return res.status(400).json('O usuario não foi atualizado');
         }

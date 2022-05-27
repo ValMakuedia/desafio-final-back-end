@@ -1,5 +1,3 @@
-const { Pool } = require('pg/lib')
-
 const knex = require('knex')({
     client: 'pg',
     connection: {
@@ -11,8 +9,6 @@ const knex = require('knex')({
     }
 })
 
-const query = (text, param) => {
-    return pool.query(text,param)
-}
+
 
 module.exports = knex;
