@@ -16,16 +16,16 @@ const registerUser = async (req, res) => {
         const emailUser = await knex('users').where('email', email)
 
         if (emailUser > 0) {
-            return res.status(400).json("Email já cadastrado");
+            return res.status(400).json("Email já cadastrado!");
         }
         const hash = await bcrypt.hash(password, 8);
        
         const user = await knex('users').insert({ name, email, password: hash });
         if (user.length === 0) {
-            return res.status(400).json("O usuário não foi cadastrado!");
+            return res.status(400).json("Usuário cadastrado!");
         }
 
-        return res.status(200).json("Usuario foi cadastrado com sucesso!")
+        return res.status(200).json("Usuário cadastrado com sucesso!")
     } catch (error) {
         return res.status(400).json(error.message);
     }
@@ -35,20 +35,20 @@ const loginUser = async (req, res) => {
     const {email, password} = req.body;
    
     if (!email || !password) {
-        return res.status(400).json("Campo obrigatório")
+        return res.status(400).json("Campo obrigatório!")
     }
 
     try {
         const user = await knex('users').where('email', email)
 
         if (user === 0) {
-            return res.status(400).json("Email ou senha incorretas");
+            return res.status(400).json("Email ou senha incorretas!");
         }
         const { password: passwordF, id: idF, email: emailF } = user[0]
 
         const verifiedPassword = await bcrypt.compare(password, passwordF)
         if (!verifiedPassword) {
-            return res.status(400).json("Email ou senha incorretas");
+            return res.status(400).json("Email ou senha incorretas!");
         }
         const token = jwt.sign({ id: idF }, segredo, { expiresIn: '10000000000h' })
 
@@ -77,7 +77,7 @@ const updateUser = async (req, res) => {
                 const emailUser = await knex('users').where('email', email).first();
 
                 if (emailUser) {
-                    return res.status(400).json('Email já existe')
+                    return res.status(400).json('Email já existe!')
                 }
             }
         }
@@ -86,10 +86,10 @@ const updateUser = async (req, res) => {
         }
         const update = await knex('users').update({ name, email, password: hash, phone, cpf }).where({ id });
         if (!update) {
-            return res.status(400).json('O usuario não foi atualizado');
+            return res.status(400).json('Usuário não atualizado!');
         }
 
-        return res.status(200).json('Usuario atualizado com sucesso.')
+        return res.status(200).json('Usuário atualizado com sucesso!')
     } catch (error) {
         return res.status(400).json(error.message);
     }
