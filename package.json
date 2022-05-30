@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/index.js",
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js",
+    "heroku-prebuild": "npm install --dev"
   },
   "repository": {
     "type": "git",
@@ -19,10 +20,11 @@
   },
   "homepage": "https://github.com/ValMakuedia/back-integral-m05-desafio-t05#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "hash": "^0.2.1",
-    "bcrypt": "^5.0.1",
+    "heroku": "^7.60.2",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.0.0",
     "nodemon": "^2.0.16",
