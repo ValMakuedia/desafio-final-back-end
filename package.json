@@ -12,10 +12,6 @@
     "start": "node ./src/index.js",
     "heroku-prebuild": "npm install --dev"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ValMakuedia/back-integral-m05-desafio-t05.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
