@@ -21,7 +21,7 @@ const verifyLogin = async (req, res, next) => {
             return res.status(400).json(" Usuario não encontrado ")
         }
 
-        const { senha, ...usuario } = queryId[0];
+        const { ...usuario } = queryId[0];
         req.usuario = usuario;
 
         next();
