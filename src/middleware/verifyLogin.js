@@ -14,7 +14,7 @@ const verifyLogin = async (req, res, next) => {
     try {
         const token = authorization.replace('Bearer ', '').trim();
         const seila = jwt.verify(token, segredo);
-        console.log(seila)
+        return seila
         const queryId = await knex('users').where('id', id)
 
         if (!queryId) {
