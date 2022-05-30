@@ -15,7 +15,7 @@ const registerUser = async (req, res) => {
     try {
         const emailUser = await knex('users').where('email', email)
 
-        if (emailUser > 0) {
+        if (emailUser.length !== 0) {
             return res.status(400).json("Email já cadastrado!");
         }
         const hash = await bcrypt.hash(password, 8);
