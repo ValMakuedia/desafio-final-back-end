@@ -1,26 +1,26 @@
 create database "api-desafio"
 
-	create table usuarios (
+	create table users (
     id serial primary key,
     name varchar not null,
     email varchar unique not null,
-    password text not null
+    password text not null,
+  	phone integer ,
+    cpf integer unique 
     );
-    
   
     
-    create table clientes (
+    create table client (
      id serial primary key,
      name varchar not null,
      email varchar unique not null,
-     telefone integer not null,
+     phone integer not null,
      cpf integer unique not null,
      cep integer,
-     logradouro varchar,
-     complemento varchar,
-     bairro varchar,
-     cidade varchar,
-     estado varchar
-      
+     address varchar,
+     complement varchar,
+     district varchar,
+     city varchar,
+     state varchar
     )
 
