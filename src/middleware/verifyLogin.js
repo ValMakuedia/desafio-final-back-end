@@ -7,7 +7,7 @@ const verifyLogin = async (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-        res.status(401).json('O usuário deve estar logado e possuir um token válido. Favor realizar login.');
+        return res.status(401).json('O usuário deve estar logado e possuir um token válido. Favor realizar login.');
 
     }
 
