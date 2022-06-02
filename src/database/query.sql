@@ -1,6 +1,6 @@
 create database "api-desafio"
 
-	create table users (
+	create table if not exists users (
     id serial primary key,
     name varchar not null,
     email varchar unique not null,
@@ -10,7 +10,7 @@ create database "api-desafio"
     );
   
     
-    create table client (
+    create table if not exists client (
      id serial primary key,
      name varchar not null,
      email varchar unique not null,
@@ -21,6 +21,15 @@ create database "api-desafio"
      complement varchar,
      district varchar,
      city varchar,
-     state varchar
+     state varchar,
+     status boolean DEFAULT false
     )
 
+    create table if not exists transaction (  
+    id serial primary key,
+    client_id integer REFERENCES client(id),
+    description text,
+    status boolean DEFAULT false,
+    amount integer,
+    expiration date
+    )
