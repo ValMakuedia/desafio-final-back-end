@@ -22,14 +22,14 @@ create database "api-desafio"
      district varchar,
      city varchar,
      state varchar,
-     status boolean DEFAULT false
+     on-day boolean DEFAULT false
     )
 
     create table if not exists transaction (  
     id serial primary key,
     client_id integer REFERENCES client(id),
     description text,
-    status boolean DEFAULT false,
+    status varchar,
     amount integer,
     expiration date
     )
