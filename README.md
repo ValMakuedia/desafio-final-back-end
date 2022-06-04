@@ -12,11 +12,13 @@ A versão final do código de cada sprint deverá estar na branch principal do r
 
 No fork de vocês, favor alterar este README para adicionar os links correspondentes para os seguintes itens:
 
-**Repositório de Backend**: https://github.com/ValMakuedia/back-integral-m05-desafio-t05
+**Repositório de Backend:** https://github.com/ValMakuedia/back-integral-m05-desafio-t05
 
-**Repositório de Frontend**: 
+**Repositório de Frontend:** https://github.com/Caduaaraujoo/deploy-front-desafio05
 
-**URL da aplicação funcionando**: 
+**URL da aplicação funcionando:** https://desafio-final-front.netlify.app/
+
+
 
 ---
 
