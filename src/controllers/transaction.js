@@ -33,6 +33,26 @@ const getTransaction = async (req, res) => {
     }
 
 }
+const getTransactionPendent = async (req, res) => {
+
+    try {
+        const transaction = await knex('transaction').where('status', "pendente");
+        return res.status(200).json(transaction)
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+
+}
+const getTransactionPayd = async (req, res) => {
+
+    try {
+        const transaction = await knex('transaction').where('status', "pago");
+        return res.status(200).json(transaction)
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+
+}
 module.exports = {
-    registerTransaction, getTransaction
+    registerTransaction, getTransaction, getTransactionPayd, getTransactionPendent
 };
