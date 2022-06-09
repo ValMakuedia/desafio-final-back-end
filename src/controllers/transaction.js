@@ -80,16 +80,21 @@ const deleteCharge = async (req, res) => {
 
     try {
         const idClient = await knex('transaction').where('client_id', id).first();
-        console.log(idClient)
-        if (idClient.status !== "pendente" && ++idClient.expiration == ++dataAtual ){
-            return res.status(404).json("Status incompatível para exclusão")
+
+        if (idClient.status != "pendente"){
+            return res.status(404).json("Status incompatível para exclusão");
         }
 
-        // if ()
+        if (idClient.expiration < dataAtual) {
+            return res.status(404).json("Data incompatível para exclusão");
+        }
+        
+        const delCharge = await knex('transaction').delete().where({id});
 
-        const delCharge = await knex('transaction').del().where('id')
+        return res.status(200).json("Deletado");
+
     }catch (error){
-
+        console.log(error)
     }
 }
 module.exports = {
