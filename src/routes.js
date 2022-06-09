@@ -2,7 +2,7 @@ const express = require('express');
 const { registerUser, loginUser, updateUser } = require('./controllers/user');
 const { registerClient, getAClient, getClients, updateClient } = require('./controllers/client')
 const { verifyLogin } = require('./middleware/verifyLogin.js')
-const { registerTransaction, getTransaction } = require('./controllers/transaction')
+const { registerTransaction, getTransaction, updateCharge, deleteCharge } = require('./controllers/transaction')
 
 const routes = express();
 
@@ -22,6 +22,10 @@ routes.put('/client', updateClient);
 
 routes.post('/transaction', registerTransaction);
 routes.get('/transaction', getTransaction);
+routes.put('/transaction', updateCharge);
+routes.delete('/transaction/:id', deleteCharge);
+
+
 
 
 module.exports = routes;

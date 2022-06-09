@@ -53,6 +53,45 @@ const getTransactionPayd = async (req, res) => {
     }
 
 }
+
+const updateCharge = async (req, res) => {
+    let { id, description, status, amount, expiration } = req.body;
+
+    if (!description || !status || !amount || !expiration) {
+        return res.status(404).json("Campo obrigatório!")
+    }
+
+    try {
+
+        await knex('transaction').where('id', id).update({ description, status, amount, expiration });
+
+        return res.status(200).json('Cobrança editada com sucesso!')
+
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+
+
+}
+
+const deleteCharge = async (req, res) => {
+    const {id} = req.params;
+    const dataAtual = new Date();
+
+    try {
+        const idClient = await knex('transaction').where('client_id', id).first();
+        console.log(idClient)
+        if (idClient.status !== "pendente" && ++idClient.expiration == ++dataAtual ){
+            return res.status(404).json("Status incompatível para exclusão")
+        }
+
+        // if ()
+
+        const delCharge = await knex('transaction').del().where('id')
+    }catch (error){
+
+    }
+}
 module.exports = {
-    registerTransaction, getTransaction, getTransactionPayd, getTransactionPendent
+    registerTransaction, getTransaction, getTransactionPayd, getTransactionPendent, updateCharge, deleteCharge
 };
