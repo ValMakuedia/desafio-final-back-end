@@ -2,8 +2,8 @@ const express = require('express');
 const { registerUser, loginUser, updateUser } = require('./controllers/user');
 const { registerClient, getAClient, getClients, updateClient } = require('./controllers/client')
 const { verifyLogin } = require('./middleware/verifyLogin.js')
-const { registerTransaction, getTransactions, updateTransaction, deleteTransaction } = require('./controllers/transaction')
-
+const { registerTransaction, updateTransaction, deleteTransaction } = require('./controllers/transaction')
+const { getTransactions, getTransactionPayd, getTransactionPendent, getATransaction } = require('./controllers/getTransaction')
 const routes = express();
 
 
@@ -21,8 +21,11 @@ routes.get('/clients', getClients);
 routes.put('/client', updateClient);
 
 routes.post('/transaction', registerTransaction);
-routes.get('/transaction', getTransactions);
-routes.put('/transaction', updateTransaction);
+routes.get('/transaction/all', getTransactions);
+routes.get('/transaction/payd', getTransactionPayd);
+routes.get('/transaction/pendent', getTransactionPendent);
+routes.get('/transaction/:id', getATransaction);
+routes.put('/transaction/:id', updateTransaction);
 routes.delete('/transaction/:id', deleteTransaction);
 
 
