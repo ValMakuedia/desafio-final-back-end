@@ -23,7 +23,7 @@ const registerTransaction = async (req, res) => {
 
 
 };
-const getTransaction = async (req, res) => {
+const getTransactions = async (req, res) => {
 
     try {
         const transaction = await knex('transaction');
@@ -54,7 +54,7 @@ const getTransactionPayd = async (req, res) => {
 
 }
 
-const updateCharge = async (req, res) => {
+const updateTransaction = async (req, res) => {
     let { id, description, status, amount, expiration } = req.body;
 
     if (!description || !status || !amount || !expiration) {
@@ -74,29 +74,30 @@ const updateCharge = async (req, res) => {
 
 }
 
-const deleteCharge = async (req, res) => {
-    const {id} = req.params;
+const deleteTransaction = async (req, res) => {
+    const { id } = req.params;
     const dataAtual = new Date();
 
     try {
         const idClient = await knex('transaction').where('client_id', id).first();
 
-        if (idClient.status != "pendente"){
+        if (idClient.status != "pendente") {
             return res.status(404).json("Status incompatível para exclusão");
         }
 
         if (idClient.expiration < dataAtual) {
             return res.status(404).json("Data incompatível para exclusão");
         }
-        
-        const delCharge = await knex('transaction').delete().where({id});
+
+        const delTransaction = await knex('transaction').delete().where({ id });
 
         return res.status(200).json("Deletado");
 
-    }catch (error){
+    } catch (error) {
         console.log(error)
     }
 }
+
 module.exports = {
-    registerTransaction, getTransaction, getTransactionPayd, getTransactionPendent, updateCharge, deleteCharge
+    registerTransaction, getTransactions, getTransactionPayd, getTransactionPendent, updateTransaction, deleteTransaction
 };
