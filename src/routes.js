@@ -7,6 +7,7 @@ const { getTransactions, getTransactionPayd, getTransactionPendent, getATransact
 const { getAClient, getClients, getClientsDefauter, getClientsOnday } = require('./controllers/getClient');
 const { searchClients, searchTransactions } = require('./controllers/search')
 const { counTransactionOverdue, counTransactionPayd, counTransactionPendent, countClientDefauter, countClientOnday } = require('./middleware/count.js')
+
 const routes = express();
 
 
