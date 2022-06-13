@@ -20,9 +20,13 @@ routes.use(verifyLogin)
 routes.put('/user', updateUser);
 
 routes.post('/client', registerClient);
-routes.get('/client', getAClient);
-routes.get('/clients', getClients);
 routes.put('/client', updateClient);
+routes.get('/client', getAClient);
+routes.get('/client/all', getClients);
+routes.get('/clients/', getClients);
+routes.get('/clients', getClients);
+routes.get('/clients', getClients);
+routes.get('/')
 
 routes.post('/transaction', registerTransaction);
 routes.get('/transaction/all', getTransactions);
