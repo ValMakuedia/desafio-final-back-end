@@ -33,7 +33,7 @@ const getTransactions = async (req, res) => {
     }
 
 }
-const getTransactionPendent = async (req, res) => {
+const getTransactionPending = async (req, res) => {
 
     try {
         const transaction = await knex('transaction').where('status', "pendente");
@@ -99,5 +99,10 @@ const deleteTransaction = async (req, res) => {
 }
 
 module.exports = {
-    registerTransaction, getTransactions, getTransactionPayd, getTransactionPendent, updateTransaction, deleteTransaction
+    registerTransaction,
+    getTransactions, 
+    getTransactionPayd, 
+    getTransactionPending, 
+    updateTransaction, 
+    deleteTransaction
 };
