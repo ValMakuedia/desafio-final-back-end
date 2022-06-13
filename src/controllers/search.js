@@ -36,3 +36,6 @@ const searchClients = async (req, res) => {
         return res.status(400).json(error.message);
     }
 }
+module.exports{
+    searchClients, searchTransactions
+}

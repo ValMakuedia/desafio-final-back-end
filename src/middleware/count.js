@@ -1,5 +1,5 @@
 const knex = require('../database/conexao');
-const { on } = require('../routes');
+
 
 const countClientOnday = async (rec, res) => {
     try {

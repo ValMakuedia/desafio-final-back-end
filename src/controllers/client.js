@@ -28,26 +28,7 @@ const registerClient = async (req, res) => {
 
 
 }
-const getAClient = async (req, res) => {
-    const { cpf } = req.body;
-    try {
-        const client = await knex('client').where({ cpf });
-        return res.status(200).json(client)
-    } catch (error) {
-        return res.status(400).json(error.message);
-    }
 
-}
-const getClients = async (req, res) => {
-
-    try {
-        const client = await knex('client');
-        return res.status(200).json(client)
-    } catch (error) {
-        return res.status(400).json(error.message);
-    }
-
-}
 const updateClient = async (req, res) => {
     const { name, email, cpf, phone, cep, address, complement, district, city, state } = req.body;
 
@@ -90,5 +71,5 @@ const updateClient = async (req, res) => {
     }
 }
 module.exports = {
-    registerClient, getAClient, getClients, updateClient
+    registerClient, updateClient
 }
