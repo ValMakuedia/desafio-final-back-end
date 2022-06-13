@@ -15,7 +15,7 @@ routes.options('/', (req, res) => {
 })
 
 routes.post('/user', registerUser);
-routes.post('/login', loginUser);
+//routes.post('/login', loginUser);
 
 routes.use(verifyLogin)
 
