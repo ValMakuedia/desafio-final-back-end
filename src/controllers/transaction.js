@@ -63,7 +63,7 @@ const updateTransaction = async (req, res) => {
 
     try {
 
-        await knex('transaction').where('id', id).update({ description, status, amount, expiration });
+        await knex('transaction').where({ id }).update({ description, status, amount, expiration });
 
         return res.status(200).json('Cobrança editada com sucesso!')
 
@@ -79,7 +79,7 @@ const deleteTransaction = async (req, res) => {
     const dataAtual = new Date();
 
     try {
-        const idClient = await knex('transaction').where('client_id', id).first();
+        const idClient = await knex('transaction').where({ id }).first();
 
         if (idClient.status != "pendente") {
             return res.status(404).json("Status incompatível para exclusão");
@@ -89,8 +89,8 @@ const deleteTransaction = async (req, res) => {
             return res.status(404).json("Data incompatível para exclusão");
         }
 
-        const delTransaction = await knex('transaction').delete().where({ id });
-
+        const delTransaction = await knex('transaction').where({ id }).delete();
+        console.log(delTransaction)
         return res.status(200).json("Deletado");
 
     } catch (error) {
