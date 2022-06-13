@@ -5,17 +5,16 @@ const { verifyLogin } = require('./middleware/verifyLogin.js')
 const { registerTransaction, updateTransaction, deleteTransaction } = require('./controllers/transaction')
 const { getTransactions, getTransactionPayd, getTransactionPendent, getATransaction } = require('./controllers/getTransaction')
 const { getAClient, getClients, getClientsDefauter, getClientsOnday } = require('./controllers/getClient');
-const { searchClients, searchTransactions } = require('./controllers/search')
-const { counTransactionOverdue, counTransactionPayd, counTransactionPendent, countClientDefauter, countClientOnday } = require('./middleware/count.js')
+//const { searchClients, searchTransactions } = require('./controllers/search')
+//const { counTransactionOverdue, counTransactionPayd, counTransactionPendent, countClientDefauter, countClientOnday } = require('./middleware/count.js')
 
 const routes = express();
 
-routes.options('/', (req, res) => {
-    return res.status(200).send()
+routes.get('/teste', (req, res) => {
+    return res.status(200).send("ok")
 })
-
 routes.post('/user', registerUser);
-//routes.post('/login', loginUser);
+routes.post('/login', loginUser);
 
 routes.use(verifyLogin)
 
