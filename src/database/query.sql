@@ -8,7 +8,8 @@ create database "api-desafio"
   	phone integer ,
     cpf integer unique 
     );
-  
+    
+    
     
     create table if not exists client (
      id serial primary key,
