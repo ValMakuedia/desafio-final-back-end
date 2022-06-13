@@ -10,7 +10,9 @@ const { counTransactionOverdue, counTransactionPayd, counTransactionPendent, cou
 
 const routes = express();
 
-
+routes.options('/', (req, res) => {
+    return res.status(200).send()
+})
 
 routes.post('/user', registerUser);
 routes.post('/login', loginUser);
@@ -23,10 +25,9 @@ routes.post('/client', registerClient);
 routes.put('/client', updateClient);
 routes.get('/client', getAClient);
 routes.get('/client/all', getClients);
-routes.get('/clients/', getClients);
-routes.get('/clients', getClients);
-routes.get('/clients', getClients);
-routes.get('/')
+routes.get('/client/defauter', getClientsDefauter);
+routes.get('/client/onday', getClientsOnday);
+
 
 routes.post('/transaction', registerTransaction);
 routes.get('/transaction/all', getTransactions);
