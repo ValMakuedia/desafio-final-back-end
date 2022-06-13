@@ -1,4 +1,4 @@
-const knex = require('../database/conexao')
+const knex = require('../database/conexao');
 
 const registerTransaction = async (req, res) => {
     const { client, description, status, amount, expiration } = req.body;
@@ -23,36 +23,57 @@ const registerTransaction = async (req, res) => {
 
 
 };
-const getTransaction = async (req, res) => {
+
+
+const updateTransaction = async (req, res) => {
+    let { id, description, status, amount, expiration } = req.body;
+
+    if (!description || !status || !amount || !expiration) {
+        return res.status(404).json("Campo obrigatório!")
+    }
 
     try {
-        const transaction = await knex('transaction');
-        return res.status(200).json(transaction)
+
+        await knex('transaction').where({ id }).update({ description, status, amount, expiration });
+
+        return res.status(200).json('Cobrança editada com sucesso!')
+
     } catch (error) {
         return res.status(400).json(error.message);
     }
 
+
 }
-const getTransactionPendent = async (req, res) => {
+
+const deleteTransaction = async (req, res) => {
+    const { id } = req.params;
+    const dataAtual = new Date();
 
     try {
-        const transaction = await knex('transaction').where('status', "pendente");
-        return res.status(200).json(transaction)
+        const idClient = await knex('transaction').where({ id }).first();
+
+        if (idClient.status != "pendente") {
+            return res.status(404).json("Status incompatível para exclusão");
+        }
+
+        if (idClient.expiration < dataAtual) {
+            return res.status(404).json("Data incompatível para exclusão");
+        }
+
+        const delTransaction = await knex('transaction').where({ id }).delete();
+
+        console.log(delTransaction)
+
+        return res.status(200).json("Deletado");
+
     } catch (error) {
         return res.status(400).json(error.message);
     }
-
 }
-const getTransactionPayd = async (req, res) => {
 
-    try {
-        const transaction = await knex('transaction').where('status', "pago");
-        return res.status(200).json(transaction)
-    } catch (error) {
-        return res.status(400).json(error.message);
-    }
 
-}
+
 module.exports = {
-    registerTransaction, getTransaction, getTransactionPayd, getTransactionPendent
-};
+    registerTransaction, updateTransaction, deleteTransaction
+}
+
