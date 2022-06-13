@@ -22,7 +22,7 @@ create database "api-desafio"
      district varchar,
      city varchar,
      state varchar,
-     on-day boolean DEFAULT false
+     onday boolean DEFAULT false
     )
 
     create table if not exists transaction (  

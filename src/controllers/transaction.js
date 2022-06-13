@@ -1,4 +1,4 @@
-const knex = require('../database/conexao')
+const knex = require('../database/conexao');
 
 const registerTransaction = async (req, res) => {
     const { client, description, status, amount, expiration } = req.body;
@@ -23,36 +23,7 @@ const registerTransaction = async (req, res) => {
 
 
 };
-const getTransactions = async (req, res) => {
 
-    try {
-        const transaction = await knex('transaction');
-        return res.status(200).json(transaction)
-    } catch (error) {
-        return res.status(400).json(error.message);
-    }
-
-}
-const getTransactionPending = async (req, res) => {
-
-    try {
-        const transaction = await knex('transaction').where('status', "pendente");
-        return res.status(200).json(transaction)
-    } catch (error) {
-        return res.status(400).json(error.message);
-    }
-
-}
-const getTransactionPayd = async (req, res) => {
-
-    try {
-        const transaction = await knex('transaction').where('status', "pago");
-        return res.status(200).json(transaction)
-    } catch (error) {
-        return res.status(400).json(error.message);
-    }
-
-}
 
 const updateTransaction = async (req, res) => {
     let { id, description, status, amount, expiration } = req.body;
@@ -90,19 +61,19 @@ const deleteTransaction = async (req, res) => {
         }
 
         const delTransaction = await knex('transaction').where({ id }).delete();
+
         console.log(delTransaction)
+
         return res.status(200).json("Deletado");
 
     } catch (error) {
-        console.log(error)
+        return res.status(400).json(error.message);
     }
 }
 
+
+
 module.exports = {
-    registerTransaction,
-    getTransactions, 
-    getTransactionPayd, 
-    getTransactionPending, 
-    updateTransaction, 
-    deleteTransaction
-};
+    registerTransaction, updateTransaction, deleteTransaction
+}
+
