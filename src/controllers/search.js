@@ -5,11 +5,17 @@ const searchTransactions = async (req, res) => {
     try {
         if (id) {
             const transactions = await knex('transaction').where({ id })
-            return res.status(200).json(transactions)
+            const { client_id } = transactions
+
+            const client_name = await knex('client').where('id', client_id).select('name')
+            return res.status(200).json(...transactions, client_name)
         }
         if (client_id) {
             const transactions = await knex('transaction').where({ client_id })
-            return res.status(200).json(transactions)
+            const { client_id } = transactions
+
+            const client_name = await knex('client').where('id', client_id).select('name')
+            return res.status(200).json(...transactions, client_name)
         }
 
     } catch (error) {
