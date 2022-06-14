@@ -5,8 +5,8 @@ const { verifyLogin } = require('./middleware/verifyLogin.js')
 const { registerTransaction, updateTransaction, deleteTransaction } = require('./controllers/transaction')
 const { getTransactions, getTransactionPayd, getTransactionPendent, getATransaction } = require('./controllers/getTransaction')
 const { getAClient, getClients, getClientsDefauter, getClientsOnday } = require('./controllers/getClient');
-//const { searchClients, searchTransactions } = require('./controllers/search')
-//const { counTransactionOverdue, counTransactionPayd, counTransactionPendent, countClientDefauter, countClientOnday } = require('./middleware/count.js')
+const { searchClients, searchTransactions } = require('./controllers/search')
+const { counTransactionOverdue, counTransactionPayd, counTransactionPendent, countClientDefauter, countClientOnday } = require('./controllers/count')
 
 const routes = express();
 
@@ -36,14 +36,14 @@ routes.get('/transaction/:id', getATransaction);
 routes.put('/transaction/:id', updateTransaction);
 routes.delete('/transaction/:id', deleteTransaction);
 
-//routes.get('/search/client', searchClients);
-//routes.get('/search/transaction', searchTransactions);
+routes.get('/search/client', searchClients);
+routes.get('/search/transaction', searchTransactions);
 
-//routes.get('/count/client/onday', countClientOnday);
-//routes.get('/count/client/defauter', countClientDefauter);
-//routes.get('/count/transaction/payd', counTransactionPayd);
-//routes.get('/count/transaction/pendent', counTransactionPendent);
-//routes.get('/count/transaction/overdue', counTransactionOverdue);
+routes.get('/count/client/onday', countClientOnday);
+routes.get('/count/client/defauter', countClientDefauter);
+routes.get('/count/transaction/payd', counTransactionPayd);
+routes.get('/count/transaction/pendent', counTransactionPendent);
+routes.get('/count/transaction/overdue', counTransactionOverdue);
 
 
 module.exports = routes;
