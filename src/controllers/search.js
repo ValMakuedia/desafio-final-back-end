@@ -1,7 +1,7 @@
 const knex = require('../database/conexao');
 
 const searchTransactions = async (req, res) => {
-    const { id, client_id } = req.params;
+    const { id, client_id } = req.body;
     try {
         if (id) {
             const transactions = await knex('transaction').where({ id })
@@ -18,7 +18,7 @@ const searchTransactions = async (req, res) => {
 }
 
 const searchClients = async (req, res) => {
-    const { name, cpf, email } = req.params;
+    const { name, cpf, email } = req.body;
     try {
         if (name) {
             const clients = await knex('client').where({ name })
