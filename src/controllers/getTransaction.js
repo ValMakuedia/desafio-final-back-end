@@ -6,7 +6,7 @@ const getTransactions = async (req, res) => {
         const transaction = await knex('transaction');
         const { client_id } = transaction
 
-        const client_name = await knex('client').where('id', client_id).select('name')
+        const client_name = await knex('client').where('id', client_id)
         return res.status(200).json(...transaction, client_name)
     } catch (error) {
         return res.status(400).json(error.message);
