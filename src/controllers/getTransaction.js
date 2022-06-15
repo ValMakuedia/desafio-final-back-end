@@ -7,7 +7,7 @@ const getTransactions = async (req, res) => {
         const { client_id } = transaction
 
         const client_name = await knex('client').where('id', client_id)
-        return res.status(200).json(...transaction, client_name)
+        return res.status(200).json(transaction, client_name)
     } catch (error) {
         return res.status(400).json(error.message);
     }
@@ -19,8 +19,8 @@ const getTransactionPendent = async (req, res) => {
         const transaction = await knex('transaction').where('status', "pendente");
         const { client_id } = transaction
 
-        const client_name = await knex('client').where('id', client_id).select('name')
-        return res.status(200).json(...transaction, client_name)
+        const client_name = await knex('client').where('id', client_id)
+        return res.status(200).json(transaction, client_name)
 
     } catch (error) {
         return res.status(400).json(error.message);
@@ -33,8 +33,8 @@ const getTransactionPayd = async (req, res) => {
         const transaction = await knex('transaction').where('status', "pago");
         const { client_id } = transaction
 
-        const client_name = await knex('client').where('id', client_id).select('name')
-        return res.status(200).json(...transaction, client_name)
+        const client_name = await knex('client').where('id', client_id)
+        return res.status(200).json(transaction, client_name)
     } catch (error) {
         return res.status(400).json(error.message);
     }
@@ -46,8 +46,8 @@ const getATransaction = async (req, res) => {
         const transaction = await knex('transaction').where({ id })
         const { client_id } = transaction
 
-        const client_name = await knex('client').where('id', client_id).select('name')
-        return res.status(200).json(...transaction, client_name)
+        const client_name = await knex('client').where('id', client_id)
+        return res.status(200).json(transaction, client_name)
     } catch (error) {
         return res.status(400).json(error.message);
     }
