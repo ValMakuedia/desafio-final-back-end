@@ -16,17 +16,16 @@ No fork de vocês, favor alterar este README para adicionar os links corresponde
 
 **Repositório de Frontend:** https://github.com/Caduaaraujoo/deploy-front-desafio05
 
-**URL da aplicação funcionando:** https://desafio-final-front.netlify.app/
-
+**URL da aplicação funcionando:** https://chic-kashata-ea77d4.netlify.app/
 
 
 ---
 
 E os itens abaixo, que deverão ser preenchidos apenas após a finalização de todas as sprints do projeto: 
 
-**Pull Request (PR) de Backend**: 
+**Pull Request (PR) de Backend**: https://github.com/cubos-academy/back-integral-m05-desafio-t05/pull/21
 
-**Pull Request (PR) de Frontend**: 
+**Pull Request (PR) de Frontend**: https://github.com/cubos-academy/front-integral-m05-desafio-t05/pull/36
 
 Estes Pull Requests (PRs) deverão ser criados a partir da branch principal do fork correspondente de vocês daquela stack tendo como destino o repositório base da stack do desafio.
 
