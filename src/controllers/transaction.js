@@ -8,7 +8,8 @@ const registerTransaction = async (req, res) => {
     }
 
     try {
-        const client_id = client
+
+        const client_id = await knex('client').where('name', client).select('id')
         const transaction = await knex('transaction').insert({ client_id, description, status, amount, expiration });
 
         if (transaction.rowcount === 0) {
